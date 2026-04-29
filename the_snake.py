@@ -55,6 +55,8 @@ class GameObject:
             self.position = (320, 240)
         else:
             self.position = position
+        self.body_color = body_color
+
     def draw(self, surface):
         """
         Абстрактный мето для отрисовки объекта а экране.
@@ -63,41 +65,30 @@ class GameObject:
         pass
 
 class Apple(GameObject):
-    """
-    Класс Apple. Наследуется от GameObject.
-    Появляется в случайном месте поля.
-    """
-    apple_color = (255, 0, 0)
+    """Класс, описывающий яблоко."""
 
-    super().__init__(position=None, body_color=apple_color)
-
-    self.radomize_position()
+    def __init__(self):
+        """Инициализация яблока со случайной позицией."""
+        super().__init__(body_color=APPLE_COLOR)
+        self.randomize_position()
 
     def randomize_position(self):
-        """
-        Устанавливает случайные координаты для яблока.
-        """
-        max_x = 640 - 20
-        max_y = 480 - 20
+        """Устанавливает случайное положение яблока на игровом поле."""
+        self.position = (
+            randint(0, GRID_WIDTH - 1) * GRID_SIZE,
+            randint(0, GRID_HEIGHT - 1) * GRID_SIZE
+        )
 
-        x.random.randrage(0, max_x + 1, 20)
-        y.random.randrage(0, max_y + 1, 20)
-
-        self.position = (x, y)
-    
     def draw(self, surface):
-        """
-        Отрисовывает яблоко на игровом поле.
-        """
-
+        """Отрисовывает яблоко на игровой поверхности."""
         rect = pygame.Rect(
             self.position[0],
             self.position[1],
-            20,
-            20
+            GRID_SIZE,
+            GRID_SIZE
         )
-        
         pygame.draw.rect(surface, self.body_color, rect)
+        pygame.draw.rect(surface, BORDER_COLOR, rect, 1)
 
 
 def main():
