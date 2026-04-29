@@ -16,16 +16,12 @@ RIGHT = (GRID_SIZE, 0)
 
 # Цвет фона - черный:
 BOARD_BACKGROUND_COLOR = (0, 0, 0)
-
 # Цвет границы ячейки
 BORDER_COLOR = (93, 216, 228)
-
 # Цвет яблока
 APPLE_COLOR = (255, 0, 0)
-
 # Цвет змейки
 SNAKE_COLOR = (0, 255, 0)
-
 # Скорость движения змейки:
 SPEED = 10
 
@@ -44,7 +40,6 @@ clock = pygame.time.Clock()
 class GameObject:
     """
     Базовый класс, от которого наследуются все объекты.
-    Содержит общие атрибуты: позиция и цвет.
     """
 
     def __init__(self, position=None, body_color=None):
@@ -53,15 +48,14 @@ class GameObject:
         Аргументы position (координаты), body_color (цвет)
         """
         if position is None:
-            self.position = (320, 240)
+            self.position = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
         else:
             self.position = position
         self.body_color = body_color
 
     def draw(self, surface):
         """
-        Абстрактный мето для отрисовки объекта а экране.
-        Аргумент: surface (поверхность на котрой рисуем)
+        Абстрактный мето для отрисовки объекта в экране.
         """
         pass
 
@@ -152,12 +146,12 @@ class Snake(GameObject):
             last_rect = pygame.Rect(self.last, (GRID_SIZE, GRID_SIZE))
             pygame.draw.rect(surface, BOARD_BACKGROUND_COLOR, last_rect)
 
-        def get_head_position(self):
-            """Возвращает позицию головы змейки."""
-            return self.positions[0]
+    def get_head_position(self):
+        """Возвращает позицию головы змейки."""
+        return self.positions[0]
         
-        def reset(self):
-            """Сбрасывает змейку в начальное состояние."""
+    def reset(self):
+        """Сбрасывает змейку в начальное состояние."""
         self.length = 1
         self.positions = [(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)]
         self.direction = choice([RIGHT, LEFT, UP, DOWN])
