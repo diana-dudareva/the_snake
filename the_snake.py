@@ -2,7 +2,7 @@ from random import choice, randint
 
 import pygame
 
-#константы для размеров поля и сетки:
+# Константы для размеров поля и сетки:
 SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
 GRID_SIZE = 20
 GRID_WIDTH = SCREEN_WIDTH // GRID_SIZE
@@ -14,15 +14,13 @@ DOWN = (0, GRID_SIZE)
 LEFT = (-GRID_SIZE, 0)
 RIGHT = (GRID_SIZE, 0)
 
-# Цвет фона - черный:
+# Цвета:
 BOARD_BACKGROUND_COLOR = (0, 0, 0)
-# Цвет границы ячейки
 BORDER_COLOR = (93, 216, 228)
-# Цвет яблока
 APPLE_COLOR = (255, 0, 0)
-# Цвет змейки
 SNAKE_COLOR = (0, 255, 0)
-# Скорость движения змейки:
+
+# Скорость:
 SPEED = 10
 
 # Настройка игрового окна:
@@ -82,6 +80,7 @@ class Apple(GameObject):
             GRID_SIZE,
             GRID_SIZE
         )
+
         pygame.draw.rect(surface, self.body_color, rect)
         pygame.draw.rect(surface, BORDER_COLOR, rect, 1)
 
@@ -111,7 +110,8 @@ class Snake(GameObject):
             (head_x + dx) % SCREEN_WIDTH,
             (head_y + dy) % SCREEN_HEIGHT
         )
-
+ 
+        # Проверяем столкновение с собой
         if len(self.positions) > 2 and new_head in self.positions[2:]:
             self.reset()
         else:
@@ -141,7 +141,7 @@ class Snake(GameObject):
             pygame.draw.rect(surface, self.body_color, head_rect)
             pygame.draw.rect(surface, BORDER_COLOR, head_rect, 1)
 
-        #затирание последнего сегмента
+        # Затирание последнего сегмента
         if self.last:
             last_rect = pygame.Rect(self.last, (GRID_SIZE, GRID_SIZE))
             pygame.draw.rect(surface, BOARD_BACKGROUND_COLOR, last_rect)
