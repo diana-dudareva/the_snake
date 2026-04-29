@@ -2,7 +2,7 @@ from random import choice, randint
 
 import pygame
 
-# Константы для размеров поля и сетки:
+#константы для размеров поля и сетки:
 SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
 GRID_SIZE = 20
 GRID_WIDTH = SCREEN_WIDTH // GRID_SIZE
@@ -118,7 +118,6 @@ class Snake(GameObject):
             (head_y + dy) % SCREEN_HEIGHT
         )
 
-        # Проверяем столкновение с собой
         if len(self.positions) > 2 and new_head in self.positions[2:]:
             self.reset()
         else:
@@ -133,7 +132,7 @@ class Snake(GameObject):
 
     def draw(self, surface):
         """Отрисовывает змейку на экране."""
-        # Отрисовка тела змейки (кроме головы)
+        # Отрисовка тела змейки
         for position in self.positions[:-1]:
             rect = pygame.Rect(position, (GRID_SIZE, GRID_SIZE))
             pygame.draw.rect(surface, self.body_color, rect)
@@ -148,7 +147,7 @@ class Snake(GameObject):
             pygame.draw.rect(surface, self.body_color, head_rect)
             pygame.draw.rect(surface, BORDER_COLOR, head_rect, 1)
 
-        # Затирание последнего сегмента
+        #затирание последнего сегмента
         if self.last:
             last_rect = pygame.Rect(self.last, (GRID_SIZE, GRID_SIZE))
             pygame.draw.rect(surface, BOARD_BACKGROUND_COLOR, last_rect)
