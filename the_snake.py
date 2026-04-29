@@ -105,6 +105,31 @@ class Snake(GameObject):
         if self.next_direction:
             self.direction = self.next_direction
             self.next_direction = None
+    
+    def move(self):
+        """Обновляет позицию змейки."""
+        # Получаем текущую позицию головы
+        head_x, head_y = self.get_head_position()
+        dx, dy = self.direction
+
+        # Вычисляем новую позицию головы с учетом оборачивания
+        new_head = (
+            (head_x + dx) % SCREEN_WIDTH,
+            (head_y + dy) % SCREEN_HEIGHT
+        )
+
+        # Проверяем столкновение с собой
+        if len(self.positions) > 2 and new_head in self.positions[2:]:
+            self.reset()
+        else:
+            # Добавляем новую голову в начало списка
+            self.positions.insert(0, new_head)
+
+            # Если длина змейки превышает установленную, удаляем хвост
+            if len(self.positions) > self.length:
+                self.last = self.positions.pop()
+            else:
+                self.last = None
 
 
 def main():
