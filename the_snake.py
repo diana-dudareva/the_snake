@@ -14,19 +14,27 @@ DOWN = (0, GRID_SIZE)
 LEFT = (-GRID_SIZE, 0)
 RIGHT = (GRID_SIZE, 0)
 
-# цвета
+# цвета фона черный:
 BOARD_BACKGROUND_COLOR = (0, 0, 0)
+
+# цвет границы ячейки
 BORDER_COLOR = (93, 216, 228)
+
+# цвет яблока:
 APPLE_COLOR = (255, 0, 0)
+
+# цвет змейки:
 SNAKE_COLOR = (0, 255, 0)
 
-# скорость
+# скорость змейки
 SPEED = 10
 
 # инициализация Pygame
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 pygame.display.set_caption('Змейка')
+
+# настройка времени:
 clock = pygame.time.Clock()
 
 
@@ -93,7 +101,7 @@ class Snake(GameObject):
         head_x, head_y = self.get_head_position()
         dx, dy = self.direction
 
-        # Вычисляем новую позицию головы с учетом оборачивания
+        # Вычисляем новую позицию головы
         new_head = (
             (head_x + dx) % SCREEN_WIDTH,
             (head_y + dy) % SCREEN_HEIGHT
@@ -114,7 +122,7 @@ class Snake(GameObject):
 
     def draw(self, surface):
         """Отрисовывает змею на экране."""
-        # отрисовка тела змейки (кроме головы)
+        # отрисовка тела змейки 
         for position in self.positions[:-1]:
             rect = pygame.Rect(position, (GRID_SIZE, GRID_SIZE))
             pygame.draw.rect(surface, self.body_color, rect)
